@@ -2,8 +2,14 @@
 use strict;
 use warnings;
 my $reading;
-#my $fiststring='+PID,';
-#my $laststring=':';
+print "please enter first string:";
+my $firststring=<STDIN>;#quotemeta("PID,");
+chomp $firststring;
+print "echo first string:$firststring \n";
+print "enter last string:";
+my $laststring=<STDIN>;#quotemeta(":");
+chomp $laststring;
+print "echo last string:$laststring \n";
 my $tmpva=0;
 my $tmpsum=0;
 open(INFILE,'<','test.txt') or die "can not open the source file";
@@ -11,7 +17,7 @@ open(OUTFILE,'>','out.txt') or die "can not open the out file";
 
 while($reading=<INFILE>)
 {
-    if($reading=~/\s*S*PID,(\S*):S*/)
+    if($reading=~/\S*$firststring(\S*)$laststring\S*/)
     {
         print OUTFILE "$1\n";
         $tmpsum=$tmpsum+$1;
