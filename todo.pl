@@ -25,14 +25,32 @@ while($reading=<INFILE>)
    if($reading=~/\S*$firststring(\S*)$laststring\S*/)
     {
         print OUTFILE "$1\n";
-        $tmpsum=$tmpsum+$1;
-        print "$1\n";
-        #print "\n";
+        $tmpsum += $1;
+        print "$1,";
     }
-#print $tmpsum;
-#print "\n";
-
 }
-print "tmp sum = $tmpsum\n";
+print "\ntmp sum = $tmpsum\n";
 close INFILE;
 close OUTFILE;
+
+#my $orderfile="order$outputfile";
+open(INFILE2,'<',$outputfile) or die "can not open in file";
+my $read;
+my $line;
+my @midlei;
+my $i;
+while($read=<INFILE2>)
+{
+  $line += 1;
+  chomp $read;
+  push @midlei ,"$read";
+}
+#print @midlei;
+#print "\n";
+my @endorder=sort{$a<=>$b}@midlei;
+
+for($i=0;$i<$line;$i++)
+{
+print $endorder[$i],",";}
+print "\n";
+close INFILE2;
